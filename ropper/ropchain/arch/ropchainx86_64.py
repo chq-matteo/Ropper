@@ -634,6 +634,8 @@ class RopChainSystemX86_64(RopChainX86_64):
     def create(self, options):
         cmd = options.get('cmd')
         address = options.get('address')
+        section_offset = option.get('section_offset')
+        
         if not cmd:
             cmd = '/bin/sh'
         if len(cmd.split(' ')) > 1:
@@ -647,11 +649,12 @@ class RopChainSystemX86_64(RopChainX86_64):
         chain_tmp = '\n'
         if address is None:
             section = self._binaries[0].getSection('.data')
-
+            if section_offset is None:
+                section_offset = section.offset
             length = math.ceil(float(len(cmd))/8) * 8
-            nulladdress = section.offset+length
+            nulladdress = section_offset+length
             try:
-                cmdaddress = section.offset
+                cmdaddress = section_offset
                 chain_tmp += self._createCommand(cmd,cmdaddress)[0]
                 can_create_command = True
 
