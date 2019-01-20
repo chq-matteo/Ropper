@@ -646,7 +646,7 @@ class RopChainX86System(RopChainX86):
     def create(self, options={}):
         cmd = options.get('cmd')
         address = options.get('address')
-        section_offset = option.get('section_offset')
+        section_offset = options.get('section_offset')
         
         if not cmd:
             cmd = '/bin/sh'
