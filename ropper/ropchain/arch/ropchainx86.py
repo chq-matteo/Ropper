@@ -663,6 +663,8 @@ class RopChainX86System(RopChainX86):
             section = self._binaries[0].getSection('.data')
             if section_offset is None:
                 section_offset = section.offset
+            else:
+                section_offset = int(section_offset, 16)
             length = math.ceil(float(len(cmd))/4) * 4
             nulladdress = section_offset+length
 
